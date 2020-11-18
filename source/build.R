@@ -1,16 +1,13 @@
 # run modules to extract, clean and compile new analysis
-
-library(RSQLite)
-library(tidyverse)
-library(here)
-library(data.table)
-
-source("source/utils.R")
+source(
+    here::here("source/requirements.R")
+)
 
 modules <- c(
-    "extract_religious_org.R",
-    "hello"
+    "extract_religious_org",
+    "classify_church_denominations"
 ) %>%
+    paste(".R") %>%
     map_chr(here)
 
 walk(

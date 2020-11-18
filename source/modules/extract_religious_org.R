@@ -39,10 +39,10 @@ empresa_religious_clean <- empresa_religious %>%
         size = porte_empresa,
         id_branch = identificador_matriz_filial,
         company_name = razao_social,
-        company_subname = nome_fantasia,
+        company_codename = nome_fantasia,
         status_registration = situacao_cadastral,
         date_registration = data_situacao_cadastral,
-        cod_legal_status = codigo_natureza_juridica,
+        type_organization = codigo_natureza_juridica,
         date_start = data_inicio_atividade,
         cnae = cnae_fiscal
     ) %>%
