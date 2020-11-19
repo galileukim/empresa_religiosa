@@ -37,3 +37,18 @@ create_dictionary <- function(named_list_of_vars) {
 
   return(dictionary)
 }
+
+create_denomination <- function(x, dictionary){
+  is_denomination <- map_lgl(dictionary, ~ str_detect(x, .))
+  denomination <- names(dictionary)[is_denomination]
+  
+  if(length(denomination) == 0){
+    denomination <- x
+  }
+
+  if(length(denomination) > 1){
+    denomination <- paste(denomination, collapse = " | ")
+  }
+  
+  return(denomination)
+}
