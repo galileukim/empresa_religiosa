@@ -17,6 +17,7 @@ church_denomination <- c(
     ) %>%
         paste(collapse = "|"),
     assembly_of_god = "ass[:print:]*deus",
+    congregacao_crista = "congregacao crista",
     baptist = "batist[\\w]*",
     salvation_army = "exercito de salvacao",
     luteran = "luter[\\w]*",
@@ -27,13 +28,17 @@ church_denomination <- c(
     pentecostal = c("pentecostal", "igreja[:print:]*pent") %>%
         paste(collapse = "|"),
     candomble = "umbanda",
-    evangelical = "igreja evang[\\w]+"
+    evangelical = "igreja evang[\\w]+",
+    muslim = "islam",
+    igreja_international = "igreja internacional",
+    apostologica = "igreja apostolica",
+    saints_of_last_days = "santos dos ultimos dias"
 )
 
 # note that every cnpj_raiz has the same name
 # so we can simply create a table of cnpj_raiz
 # with each unique company_name
-empresa_church_raiz <- religious_org %>%
+empresa_church_raiz <- empresa_church %>%
     mutate(
         cnpj_raiz = str_sub(cnpj, 1, 8)
     ) %>%
@@ -41,10 +46,9 @@ empresa_church_raiz <- religious_org %>%
         cnpj_raiz,
         company_name
     )
-
-sample_church <- empresa_church_raiz %>%
-    sample_n(50)
     
+# empresa_church_raiz <- 
+
 sample_church %>%
     mutate(
         denomination = map_chr(
@@ -52,6 +56,28 @@ sample_church %>%
             ~ create_denomination(., church_denomination)
         )
     ) %>%
-    write_csv(
-        here("data/sample/church_denomination_sample.csv")
+    separate(
+        denomination,
+        c("denomination_main", "denomination_secondary"),
+        sep = ",",
+        remove = TRUE,
+        extra = "merge",
+        fill = "right"
+    )
+
+# join with original dataset and attribute denomination according to
+# cnpj raiz
+empresa_church <- empresa_church %>% 
+    mutate(
+        cnpj_raiz = str_sub(cnpj, 1, 8)
+    ) %>%
+    left_join(
+        empresa_church_raiz,
+        by = "cnpj_raiz"
+    )
+
+empresa_church %>%
+    fwrite(
+        here("data/clean/empresa_church_with_denomination.csv.gz"),
+        compress = "gzip"
     )

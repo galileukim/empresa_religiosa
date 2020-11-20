@@ -38,17 +38,23 @@ create_dictionary <- function(named_list_of_vars) {
   return(dictionary)
 }
 
-create_denomination <- function(x, dictionary){
+create_denomination <- function(x, dictionary) {
+  # need to create memory here where the relevant ordering matters
   is_denomination <- map_lgl(dictionary, ~ str_detect(x, .))
+
   denomination <- names(dictionary)[is_denomination]
-  
-  if(length(denomination) == 0){
-    denomination <- x
+
+  if (length(denomination) == 0) {
+    denomination <- NA
   }
 
-  if(length(denomination) > 1){
-    denomination <- paste(denomination, collapse = " | ")
+  if (length(denomination) > 1) {
+    relative_ordering_denomination <- map_dbl(
+      dictionary, ~ str_locate(x, .) %>%
+        rowSums()
+    )
+    denomination <- paste(denomination, collapse = ",")
   }
-  
+
   return(denomination)
 }

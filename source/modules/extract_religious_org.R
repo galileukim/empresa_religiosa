@@ -74,4 +74,4 @@ empresa_religious_clean <- empresa_religious_clean %>%
     )
 
 empresa_religious_clean %>%
-    fwrite("data/clean/empresa_religious.csv")
+    fwrite("data/clean/empresa_religious.csv.gz", compress = "gzip")
