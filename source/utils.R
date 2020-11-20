@@ -51,9 +51,14 @@ create_denomination <- function(x, dictionary) {
   if (length(denomination) > 1) {
     relative_ordering_denomination <- map_dbl(
       dictionary, ~ str_locate(x, .) %>%
-        rowSums()
-    )
-    denomination <- paste(denomination, collapse = ",")
+        .[,"start"] # retrieve starting position and retrieve
+    ) %>%
+      .[!is.na(.)]
+
+    denomination <- relative_ordering_denomination %>%
+      sort %>% 
+      names %>%
+      paste(collapse = ",")
   }
 
   return(denomination)

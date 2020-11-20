@@ -25,10 +25,9 @@ church_denomination <- c(
         paste(collapse = "|"),
     ieq = "igreja do evangelho quadrangular",
     iurd = "igreja universal do reino de deus",
-    pentecostal = c("pentecostal", "igreja[:print:]*pent") %>%
+    pentecostal = c("pentecostal", "pent") %>%
         paste(collapse = "|"),
     candomble = "umbanda",
-    evangelical = "igreja evang[\\w]+",
     muslim = "islam",
     igreja_international = "igreja internacional",
     apostologica = "igreja apostolica",
@@ -48,8 +47,7 @@ empresa_church_raiz <- empresa_church %>%
     )
     
 # empresa_church_raiz <- 
-
-sample_church %>%
+empresa_church_raiz <- empresa_church_raiz %>%
     mutate(
         denomination = map_chr(
             company_name,
@@ -58,26 +56,17 @@ sample_church %>%
     ) %>%
     separate(
         denomination,
-        c("denomination_main", "denomination_secondary"),
+        c("denomination_primary", "denomination_secondary"),
         sep = ",",
         remove = TRUE,
         extra = "merge",
         fill = "right"
-    )
-
-# join with original dataset and attribute denomination according to
-# cnpj raiz
-empresa_church <- empresa_church %>% 
-    mutate(
-        cnpj_raiz = str_sub(cnpj, 1, 8)
     ) %>%
-    left_join(
-        empresa_church_raiz,
-        by = "cnpj_raiz"
+    filter(
+        !is.na(denomination_secondary)
     )
 
-empresa_church %>%
+empresa_church_raiz %>%
     fwrite(
-        here("data/clean/empresa_church_with_denomination.csv.gz"),
-        compress = "gzip"
+        here("data/clean/empresa_church_raiz_denomination.csv")
     )
