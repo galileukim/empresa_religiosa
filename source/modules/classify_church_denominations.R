@@ -7,6 +7,7 @@ empresa_church <- fread(
 
 church_denomination <- c(
     adventist = "adventista",
+    afro_brazilian = "afro",
     apostologica = "igreja apostolica",
     anglican = "anglican",
     assembly_of_god = "ass[:print:]*deus",
@@ -19,19 +20,20 @@ church_denomination <- c(
         "dioces", "arquid", "filhas", "mitra", "catolica",
         "jesuitas", "salesiana", "carmelita", "paroquia",
         "prelazia", "missionarias", "catolico", "franciscana",
-        "bispos", "conselho indigenista missionario", "comissao pastoral"
+        "bispos", "(conselho indigenista missionario)", "(comissao pastoral)"
     ) %>%
         paste(collapse = "|"),
     candomble = "candomble",
     christian_community = "comunidade crista",
-    congregational = c("congregacao crista", "congregacional"),
-    espirita = c("espirit", "umbadista", "cultos afros") %>%
+    congregational = c("congregacao crista", "congregacional") %>%
         paste(collapse = "|"),
+    espirita = "espirita",
     evangelical_community = "comunidade evangelica",
     evangelho_quadrangular = "igreja do evangelho quadrangular",
     indigenous = c(
-        "indigena", "santo daime", "vegetal", "barquinha", "neoxamanica"
-    )
+        "indigena", "(santo daime)", "vegetal", "barquinha", "neoxamanica"
+    ) %>%
+        paste(collapse = "|"),
     hinduism = "hindu",
     igreja_internacional = "igreja internacional",
     iurd = "igreja universal do reino de deus",
@@ -44,8 +46,8 @@ church_denomination <- c(
     nazareth_church = "igreja do nazareno",
     new_life = "nova vida",
     orthodox = "ortodoxa",
-    pentecostal = c("pentecostal", "pent") %>%
-        paste(collapse = "|"),
+    # pentecostal = c("pentecostal", "pent") %>%
+    #     paste(collapse = "|"),
     prayer_chain = "cadeia da prece",
     presbiterian = "presbiterian[a|o]",
     religion_of_god = "religiao de deus",
@@ -67,8 +69,8 @@ empresa_church_raiz <- empresa_church %>%
         cnpj_raiz,
         company_name
     )
-    
-# empresa_church_raiz <- 
+  
+# create denominations
 empresa_church_raiz <- empresa_church_raiz %>%
     mutate(
         denomination = map_chr(

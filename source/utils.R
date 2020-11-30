@@ -51,13 +51,14 @@ create_denomination <- function(x, dictionary) {
   if (length(denomination) > 1) {
     relative_ordering_denomination <- map_dbl(
       dictionary, ~ str_locate(x, .) %>%
-        .[,"start"] # retrieve starting position and retrieve
+        .[,"start"] # retrieve starting position
     ) %>%
       .[!is.na(.)]
 
     denomination <- relative_ordering_denomination %>%
       sort %>% 
       names %>%
+      .[1:2] %>% # extract only two denominations
       paste(collapse = ",")
   }
 
