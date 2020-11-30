@@ -6,9 +6,14 @@ empresa_church <- fread(
 )
 
 church_denomination <- c(
-    presbiterian = "presbiterian[a|o]",
-    methodist = "metodista",
     adventist = "adventista",
+    apostologica = "igreja apostolica",
+    anglican = "anglican",
+    assembly_of_god = "ass[:print:]*deus",
+    baptist = "batist[\\w]*",
+    biblical_revival = "avivamento biblico",
+    brazil_for_christ = "brasil p[a]*ra cristo",
+    blessing_house = "casa da bencao",
     catholic = c(
         "dioces", "arquid", "filhas", "mitra", "catolica",
         "jesuitas", "salesiana", "carmelita", "paroquia",
@@ -16,22 +21,29 @@ church_denomination <- c(
         "bispos", "conselho indigenista missionario", "comissao pastoral"
     ) %>%
         paste(collapse = "|"),
-    assembly_of_god = "ass[:print:]*deus",
-    congregacao_crista = "congregacao crista",
-    baptist = "batist[\\w]*",
-    salvation_army = "exercito de salvacao",
-    luteran = "luter[\\w]*",
+    christian_community = "comunidade crista",
+    congregational = c("congregacao crista", "congregacional"),
     espirita = c("espirit", "umbadista", "cultos afros") %>%
         paste(collapse = "|"),
-    ieq = "igreja do evangelho quadrangular",
+    evangelical_community = "comunidade evangelica",
+    evangelho_quadrangular = "igreja do evangelho quadrangular",
+    igreja_internacional = "igreja internacional",
     iurd = "igreja universal do reino de deus",
+    lutheran = "luter[\\w]*",
+    jehovah_witness = "testemunha[\\s]*[de\\s]*jeova"
+    maranata = "maranata",
+    methodist = "metodista",
+    memnonite = "menonita[s]*",
+    nazareth_church = "igreja do nazareno",
+    new_life = "nova vida",
+    orthodox = "ortodoxa",
     pentecostal = c("pentecostal", "pent") %>%
         paste(collapse = "|"),
-    candomble = "umbanda",
-    muslim = "islam",
-    igreja_international = "igreja internacional",
-    apostologica = "igreja apostolica",
-    saints_of_last_days = "santos dos ultimos dias"
+    prayer_chain = "cadeia da prece",
+    presbiterian = "presbiterian[a|o]",
+    religion_of_god = "religiao de deus",
+    salvation_army = "exercito de salvacao",
+    saints_of_last_days = "santo[s]* dos ultimos dias"
 )
 
 # note that every cnpj_raiz has the same name
