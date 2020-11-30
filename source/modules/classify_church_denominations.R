@@ -14,6 +14,7 @@ church_denomination <- c(
     biblical_revival = "avivamento biblico",
     brazil_for_christ = "brasil p[a]*ra cristo",
     blessing_house = "casa da bencao",
+    buddhism = c("budismo", "nitiren", "zen", "soka gakkai"),
     catholic = c(
         "dioces", "arquid", "filhas", "mitra", "catolica",
         "jesuitas", "salesiana", "carmelita", "paroquia",
@@ -21,16 +22,22 @@ church_denomination <- c(
         "bispos", "conselho indigenista missionario", "comissao pastoral"
     ) %>%
         paste(collapse = "|"),
+    candomble = "candomble",
     christian_community = "comunidade crista",
     congregational = c("congregacao crista", "congregacional"),
     espirita = c("espirit", "umbadista", "cultos afros") %>%
         paste(collapse = "|"),
     evangelical_community = "comunidade evangelica",
     evangelho_quadrangular = "igreja do evangelho quadrangular",
+    indigenous = c(
+        "indigena", "santo daime", "vegetal", "barquinha", "neoxamanica"
+    )
+    hinduism = "hindu",
     igreja_internacional = "igreja internacional",
     iurd = "igreja universal do reino de deus",
     lutheran = "luter[\\w]*",
-    jehovah_witness = "testemunha[\\s]*[de\\s]*jeova"
+    jehovah_witness = "testemunha[\\s]*[de\\s]*jeova",
+    judaism = "sinagoga|judia",
     maranata = "maranata",
     methodist = "metodista",
     memnonite = "menonita[s]*",
@@ -43,7 +50,10 @@ church_denomination <- c(
     presbiterian = "presbiterian[a|o]",
     religion_of_god = "religiao de deus",
     salvation_army = "exercito de salvacao",
-    saints_of_last_days = "santo[s]* dos ultimos dias"
+    saints_of_last_days = "santo[s]* dos ultimos dias",
+    shinto = "shinto",
+    taoism = "\\btao\\b",
+    umbanda = "umbanda"
 )
 
 # note that every cnpj_raiz has the same name
