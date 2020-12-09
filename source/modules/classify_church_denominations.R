@@ -46,8 +46,7 @@ church_denomination <- c(
     nazareth_church = "igreja do nazareno",
     new_life = "nova vida",
     orthodox = "ortodoxa",
-    # pentecostal = c("pentecostal", "pent") %>%
-    #     paste(collapse = "|"),
+    pentecostal = "pentecostal",
     prayer_chain = "cadeia da prece",
     presbiterian = "presbiterian[a|o]",
     religion_of_god = "religiao de deus",
@@ -85,9 +84,29 @@ empresa_church_raiz <- empresa_church_raiz %>%
         remove = TRUE,
         extra = "merge",
         fill = "right"
+    )
+
+# generate summary statistics
+empresa_church_raiz_summary <- empresa_church_raiz %>%
+    left_join(
+         empresa_church %>%
+            mutate(
+                cnpj_raiz = str_sub(cnpj, 1, 8)
+            ) %>%
+            count(cnpj_raiz),
+            by = "cnpj_raiz"
     ) %>%
-    filter(
-        !is.na(denomination_secondary)
+    group_by(denomination_primary) %>%
+    summarise(
+        total_cnpj_raiz = n_distinct(cnpj_raiz),
+        total_churches = sum(n)
+    ) 
+    
+message("write out data")
+
+empresa_church_raiz_summary %>%
+    fwrite(
+        here("data/clean/empresa_church_raiz_summary.csv")
     )
 
 empresa_church_raiz %>%
