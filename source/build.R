@@ -5,6 +5,7 @@ source(
 
 modules <- c(
     "extract_religious_org",
+    "generate_panel_religious_org",
     "classify_church_denominations"
 ) %>%
     paste(".R") %>%
