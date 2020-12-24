@@ -64,3 +64,8 @@ panel_church_extinct <- empresa_church_extinct %>%
 
 panel_church <- panel_church_active %>%
     bind_rows(panel_church_extinct)
+
+panel_church %>%
+    write_csv(
+        here("data/clean/empresa_church_panel.csv")
+    )
