@@ -6,7 +6,9 @@ source(
 modules <- c(
     "extract_religious_org",
     "generate_panel_religious_org",
-    "classify_church_denominations"
+    "classify_church_denominations",
+    "generate_herfindahl_index",
+    "generate_party_church.R"
 ) %>%
     paste(".R") %>%
     map_chr(here)

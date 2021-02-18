@@ -65,6 +65,7 @@ empresa_church_raiz <- empresa_church %>%
         cnpj_raiz = str_sub(cnpj, 1, 8)
     ) %>%
     distinct(
+        cnpj,
         cnpj_raiz,
         company_name
     )
