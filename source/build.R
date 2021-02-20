@@ -8,7 +8,8 @@ modules <- c(
     "generate_panel_religious_org",
     "classify_church_denominations",
     "generate_herfindahl_index",
-    "generate_party_church.R"
+    "clean_election_data",
+    "generate_party_church"
 ) %>%
     paste(".R") %>%
     map_chr(here)

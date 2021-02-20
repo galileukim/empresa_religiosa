@@ -1,10 +1,7 @@
 # read in data
 election <- read_csv(
-    here("data/raw/election_local.csv.gz")
-) %>%
-    filter(
-        election_year %in% c(2012, 2016)
-    )
+    here("data/clean/election_local.csv.gz")
+)
 
 church_panel <- read_csv(
     here("data/clean/empresa_church_panel.csv")
@@ -39,7 +36,6 @@ church_mun <- read_csv(
 
 # generate panel data for election with nr. vereadores and dummy for mayor
 election_panel <- election %>% 
-    filter(round == 1) %>%
     group_by(cod_ibge_6, election_year) %>%
     summarise(
         total_vereadores_prb = sum(position == "vereador" & party == "prb"),
@@ -62,6 +58,9 @@ church_panel_total <- church_panel %>%
         names_from = c(denomination, year),
         names_prefix = "total_churches_",
         values_from = total_churches
+    ) %>%
+    replace(
+        is.na(.), 0
     )
 
 panel_church_party <- election_panel %>% 
